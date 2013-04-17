@@ -86,6 +86,8 @@ public class MainActivity extends Activity{
         webview.getSettings().setGeolocationEnabled(true);
         webview.setWebChromeClient(new GeoWebChromeClient());
 
+        webview.getSettings().setDisplayZoomControls(false);
+        webview.getSettings().setSupportZoom(false);
         String url="file:///android_asset/www/content.html";
         webview.loadUrl(url);
 	}
