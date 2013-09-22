@@ -88,7 +88,7 @@ public class MainActivity extends Activity{
 
         webview.getSettings().setDisplayZoomControls(false);
         webview.getSettings().setSupportZoom(false);
-        String url="file:///android_asset/www/content.html";
+        String url="file:///android_asset/www/index.html";
         webview.loadUrl(url);
 	}
 	

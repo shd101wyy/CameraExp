@@ -1,0 +1,80 @@
+<html>
+    <head>
+        <title>My first Three.js app</title>
+        <style>canvas { width: 100%; height: 100% }
+        </style> 
+    </head>
+    <body id="body1" style="background-color: black" onkeypress="myKeyPress(event)"> 
+        <script src="https://raw.github.com/mrdoob/three.js/master/build/three.js">        </script>
+
+        <script src="./jquery.min.js"></script>
+        <script src="./three.js"></script>
+        
+        <h1 style="color: white"> TIME </h1>
+        <p id="time" style="color: white"> time </p>
+        
+        <script> // Our Javascript will go here. 
+            
+       function myKeyPress(evt){
+
+               evt = evt || window.event;
+               var charCode = evt.keyCode || evt.which;
+               var charStr = String.fromCharCode(charCode);
+               if(charStr=="w"){
+                   camera.position.z=camera.position.z+0.1
+                }
+        }
+            
+            var clock=new THREE.Clock();
+            clock.start();
+            
+            
+            var s_fog=new THREE.Fog(0x000000,0.1,1000)
+            
+            var scene=new THREE.Scene();
+          
+            var camera=new THREE.PerspectiveCamera(
+                75,
+                window.innerWidth/window.innerHeight,
+                0.1,
+                1000
+                );
+            camera.lookAt(new THREE.Vector3(0,0,0));
+            
+            var renderer = new THREE.WebGLRenderer();
+            renderer.setSize( window.innerWidth, window.innerHeight );
+            //document.body.appendChild( renderer.domElement );
+            var $body=$("#body1");
+            $body.append(renderer.domElement);
+            
+            var geometry = new THREE.CubeGeometry(1,1,1);
+            var material = new THREE.MeshBasicMaterial( { color: 0x00ff10 } ); 
+            var cube = new THREE.Mesh( geometry, material ); 
+            scene.add( cube );
+            camera.position.z = 10;
+            
+            var light = new THREE.PointLight( 0xff0000, 10, 100 ); 
+            light.position.set( 20, 20, 20 ); 
+            scene.add( light );           
+            
+            areaLight1 = new THREE.AreaLight( 0xffffff, 1 ); 
+            areaLight1.position.set( 0.0001, 10.0001, -18.5001 ); 
+            areaLight1.rotation.set( -0.74719, 0.0001, 0.0001 ); 
+            areaLight1.width = 10; 
+            areaLight1.height = 1; 
+            scene.add( areaLight1 );
+            
+            function render_ani(){
+                requestAnimationFrame(render_ani);
+                cube.rotation.x+=0.1;
+                cube.rotation.y+=0.1;
+                renderer.render(scene,camera);
+                
+                var time=document.getElementById("time");
+                time.innerHTML=clock.getElapsedTime();
+
+            }
+            render_ani();
+        </script> 
+    </body>
+</html>
